@@ -1,0 +1,110 @@
+dashboard:
+  report_id: 1832050
+  sheet_id: 2653147
+  cm_report_id: 17421529
+  bdm_report_id: 17421549
+  dataset_id: 5251067
+
+monitoring:
+  metrics:
+    - id: single_complete_rate
+      name: 单计核销完成度
+      level: [bdm, city]
+      field: BDM单计核销完成度
+    - id: double_complete_rate
+      name: 双计核销完成度
+      level: [bdm, city]
+      field: BDM双计核销完成度
+    - id: scan_complete_rate
+      name: 双计扫码核销完成度
+      level: [bdm, city]
+      field: BDM双计扫码核销完成度
+    - id: cm_comprehensive
+      name: CM综合达成
+      level: [cm]
+      field: CM综合达成
+    - id: double_increment
+      name: 双计核销当日增量
+      level: [bdm]
+      field: 绩效双计核销-当日
+
+rules:
+  R1:
+    name: 低完成率预警
+    condition: "complete_rate < 60"
+    threshold: 60
+    cooldown_minutes: 120
+    levels: [bdm, cm]
+  R2:
+    name: 增速停滞预警
+    condition: "consecutive_zero_hours >= 2 and complete_rate < 100"
+    threshold: 2
+    cooldown_minutes: 240
+    levels: [bdm]
+    peak_threshold: 1
+  R3:
+    name: 冲刺不足预警
+    condition: "predicted_gap > 0"
+    threshold_hours_before_end: 3
+    cooldown_minutes: 720
+    levels: [bdm]
+  R4:
+    name: 层级失衡预警
+    condition: "cm_gap > 40"
+    threshold: 40
+    cooldown_minutes: 1440
+    levels: [bdm]
+
+notification:
+  layers:
+    region:
+      enabled: true
+      chat_id: "${REGION_CHAT_ID}"
+      content_level: summary
+    city:
+      enabled: true
+      chat_ids: "${CITY_CHAT_IDS}"
+      content_level: detail
+    bdm:
+      enabled: true
+      message_type: private
+      content_level: personal
+    cm:
+      enabled: true
+      message_type: private
+      content_level: store
+      cc_bdm_on_severe: true
+
+scheduler:
+  peak:
+    cron: "0 9-22 * * *"
+    description: 冲锋日每小时巡检
+    mode: peak
+  warmup:
+    cron: "0 10,13,16,19 * * *"
+    description: 蓄水期每3小时巡检
+    mode: warmup
+  daily:
+    cron: "0 10,17 * * 1-5"
+    description: 日常工作日巡检
+    mode: daily
+  recap:
+    cron: "30 9 * * *"
+    description: 复盘报告生成
+    mode: recap
+
+state_store:
+  bitable_app_token: "${BITABLE_APP_TOKEN}"
+  bitable_table_id: "${BITABLE_TABLE_ID}"
+  states: [open, acknowledged, snoozed, expired]
+
+identity_mapping:
+  source: "dataset"
+  refresh_cron: "0 0 * * *"
+  fields: [bdm_name, email, lark_open_id]
+
+logging:
+  level: INFO
+  file: "logs/charge_race_ops.log"
+  max_bytes: 10485760
+  backup_count: 5
