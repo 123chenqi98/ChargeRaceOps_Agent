@@ -1,5 +1,4 @@
 ![alt text](ChargeRaceOps_Agent/img/image-2.png)
-
 ![alt text](ChargeRaceOps_Agent/img/image-3.png)
 冲锋赛过程管理 - 数据驱动业务闭环
 
