@@ -259,3 +259,143 @@
 2026-07-30 17:12:39.805 | INFO     | __main__:_step_expire_old_alerts:186 - [步骤5] 过期处理...
 2026-07-30 17:12:39.805 | INFO     | __main__:run_inspection:67 - [巡检] 完成：耗时 0.0s，采集 110 条指标，识别 52 条预警
 2026-07-30 17:12:41.154 | INFO     | __main__:run_recap:88 - [复盘] 开始生成复盘报告...
+2026-07-31 10:16:15.554 | INFO     | __main__:run_inspection:51 - [巡检] 开始执行，模式: manual
+2026-07-31 10:16:15.554 | INFO     | __main__:_step_fetch:143 - [步骤1] 数据采集...
+2026-07-31 10:16:15.554 | INFO     | src.core.fetch:fetch_metrics:215 - [Mock数据] 生成 110 条模拟指标数据
+2026-07-31 10:16:15.554 | INFO     | __main__:_step_fetch_increment:157 - [步骤1b] 获取增量数据...
+2026-07-31 10:16:15.555 | INFO     | __main__:_step_detect:166 - [步骤2] 规则识别...
+2026-07-31 10:16:15.555 | WARNING  | src.core.detector:detect:54 - [预警检测] 发现 52 条预警
+2026-07-31 10:16:15.555 | WARNING  | src.core.detector:detect:56 -   - [R1] 王鸿鹏/单计核销完成度: 5.3% < 60%
+2026-07-31 10:16:15.555 | WARNING  | src.core.detector:detect:56 -   - [R1] 王鸿鹏/双计核销完成度: 9.5% < 60%
+2026-07-31 10:16:15.555 | WARNING  | src.core.detector:detect:56 -   - [R1] 王鸿鹏/双计扫码核销完成度: 3.2% < 60%
+2026-07-31 10:16:15.555 | WARNING  | src.core.detector:detect:56 -   - [R1] 王鸿鹏/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.555 | WARNING  | src.core.detector:detect:56 -   - [R1] 王鸿鹏/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.555 | WARNING  | src.core.detector:detect:56 -   - [R1] 朱超颖/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 朱超颖/双计核销当日增量: 50.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 李明/单计核销完成度: 45.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 李明/双计核销完成度: 55.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 李明/双计扫码核销完成度: 40.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 李明/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 李明/双计核销当日增量: 20.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 张伟/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 陈静/单计核销完成度: 58.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 陈静/双计扫码核销完成度: 50.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 陈静/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 陈静/双计核销当日增量: 10.0% < 60%
+2026-07-31 10:16:15.556 | WARNING  | src.core.detector:detect:56 -   - [R1] 刘强/单计核销完成度: 35.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 刘强/双计核销完成度: 40.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 刘强/双计扫码核销完成度: 30.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 刘强/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 刘强/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 黄磊/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 黄磊/双计核销当日增量: 40.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 周婷/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店A-CM/单计核销完成度: 30.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店A-CM/双计核销完成度: 25.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店A-CM/双计扫码核销完成度: 20.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店A-CM/CM综合达成: 15.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店A-CM/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店B-CM/单计核销完成度: 30.0% < 60%
+2026-07-31 10:16:15.557 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店B-CM/双计核销完成度: 25.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店B-CM/双计扫码核销完成度: 20.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店B-CM/CM综合达成: 45.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店B-CM/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店C-CM/单计核销完成度: 30.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店C-CM/双计核销完成度: 25.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店C-CM/双计扫码核销完成度: 20.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店C-CM/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店D-CM/单计核销完成度: 30.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店D-CM/双计核销完成度: 25.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店D-CM/双计扫码核销完成度: 20.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店D-CM/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店E-CM/单计核销完成度: 30.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店E-CM/双计核销完成度: 25.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店E-CM/双计扫码核销完成度: 20.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店E-CM/CM综合达成: 30.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店E-CM/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店F-CM/单计核销完成度: 30.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店F-CM/双计核销完成度: 25.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店F-CM/双计扫码核销完成度: 20.0% < 60%
+2026-07-31 10:16:15.558 | WARNING  | src.core.detector:detect:56 -   - [R1] 门店F-CM/双计核销当日增量: 0.0% < 60%
+2026-07-31 10:16:15.558 | INFO     | __main__:_step_track:172 - [步骤3] 状态追踪...
+2026-07-31 10:16:15.709 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: d9bbbad8 (低完成率预警)
+2026-07-31 10:16:15.811 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: ace99057 (低完成率预警)
+2026-07-31 10:16:15.925 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: d482fa05 (低完成率预警)
+2026-07-31 10:16:16.072 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 4daeb3bb (低完成率预警)
+2026-07-31 10:16:16.190 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 20369dc3 (低完成率预警)
+2026-07-31 10:16:16.305 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 2bfa4281 (低完成率预警)
+2026-07-31 10:16:16.416 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 50d26bdc (低完成率预警)
+2026-07-31 10:16:16.513 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 3258f4eb (低完成率预警)
+2026-07-31 10:16:16.618 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 5d3d0e21 (低完成率预警)
+2026-07-31 10:16:16.738 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: f21223e6 (低完成率预警)
+2026-07-31 10:16:16.850 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 4d62ecfa (低完成率预警)
+2026-07-31 10:16:17.047 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 5c552a5e (低完成率预警)
+2026-07-31 10:16:17.154 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: c40be9ef (低完成率预警)
+2026-07-31 10:16:17.262 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: e9d83dc0 (低完成率预警)
+2026-07-31 10:16:17.379 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 0146f7d6 (低完成率预警)
+2026-07-31 10:16:17.477 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: c01df479 (低完成率预警)
+2026-07-31 10:16:17.602 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 3e806312 (低完成率预警)
+2026-07-31 10:16:17.709 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: be411467 (低完成率预警)
+2026-07-31 10:16:17.841 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: e2497d8a (低完成率预警)
+2026-07-31 10:16:17.960 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: cc835404 (低完成率预警)
+2026-07-31 10:16:18.085 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 19c14ba6 (低完成率预警)
+2026-07-31 10:16:18.202 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 16b99924 (低完成率预警)
+2026-07-31 10:16:18.331 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 9253eeed (低完成率预警)
+2026-07-31 10:16:18.450 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 2c88ddda (低完成率预警)
+2026-07-31 10:16:18.551 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 8fa7eac7 (低完成率预警)
+2026-07-31 10:16:18.652 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 747186e7 (低完成率预警)
+2026-07-31 10:16:18.775 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: ad3e7ace (低完成率预警)
+2026-07-31 10:16:18.891 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: a7de7bb0 (低完成率预警)
+2026-07-31 10:16:19.013 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 2b191c36 (低完成率预警)
+2026-07-31 10:16:19.122 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: fadb05b0 (低完成率预警)
+2026-07-31 10:16:19.249 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 068e0ca7 (低完成率预警)
+2026-07-31 10:16:19.375 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: ef195908 (低完成率预警)
+2026-07-31 10:16:19.491 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 5eebb83f (低完成率预警)
+2026-07-31 10:16:19.599 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 64b9731a (低完成率预警)
+2026-07-31 10:16:19.719 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: cfe90b7c (低完成率预警)
+2026-07-31 10:16:19.837 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 60716cc5 (低完成率预警)
+2026-07-31 10:16:19.943 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 274bef6a (低完成率预警)
+2026-07-31 10:16:20.043 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 976257ba (低完成率预警)
+2026-07-31 10:16:20.142 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 462da631 (低完成率预警)
+2026-07-31 10:16:20.255 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 84d71bb6 (低完成率预警)
+2026-07-31 10:16:20.373 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: f65940f7 (低完成率预警)
+2026-07-31 10:16:20.490 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 03c78a15 (低完成率预警)
+2026-07-31 10:16:20.609 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: a62103f3 (低完成率预警)
+2026-07-31 10:16:20.710 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 52360359 (低完成率预警)
+2026-07-31 10:16:20.810 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: b90fe1e1 (低完成率预警)
+2026-07-31 10:16:20.921 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: d565068f (低完成率预警)
+2026-07-31 10:16:21.178 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 144a99b9 (低完成率预警)
+2026-07-31 10:16:21.282 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 1f099d3e (低完成率预警)
+2026-07-31 10:16:21.379 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 8270aaf2 (低完成率预警)
+2026-07-31 10:16:21.498 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 9f7eb8e2 (低完成率预警)
+2026-07-31 10:16:21.625 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 37723a72 (低完成率预警)
+2026-07-31 10:16:21.724 | INFO     | src.core.tracker:record_alert:60 - [状态追踪] 记录预警: 04ba0d2a (低完成率预警)
+2026-07-31 10:16:21.725 | INFO     | __main__:_step_notify:178 - [步骤4] 精准推送...
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 王鸿鹏 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 朱超颖 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 李明 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 张伟 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 陈静 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 刘强 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 黄磊 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_bdm_alerts:167 - [飞书] 未找到 周婷 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_cm_alerts:200 - [飞书] 未找到 门店A-CM 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_cm_alerts:200 - [飞书] 未找到 门店B-CM 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_cm_alerts:200 - [飞书] 未找到 门店C-CM 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_cm_alerts:200 - [飞书] 未找到 门店D-CM 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_cm_alerts:200 - [飞书] 未找到 门店E-CM 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | WARNING  | src.core.notifier:_send_cm_alerts:200 - [飞书] 未找到 门店F-CM 的open_id，跳过私聊推送
+2026-07-31 10:16:21.725 | INFO     | src.core.notifier:send_alerts:78 - [飞书] 推送完成: 0 条预警已发送
+2026-07-31 10:16:21.725 | INFO     | __main__:_step_notify:182 - [步骤4] 推送完成: 0/0 成功
+2026-07-31 10:16:21.725 | INFO     | __main__:_step_expire_old_alerts:186 - [步骤5] 过期处理...
+2026-07-31 10:16:21.725 | INFO     | __main__:run_inspection:67 - [巡检] 完成：耗时 6.2s，采集 110 条指标，识别 52 条预警
+2026-07-31 10:23:31.929 | INFO     | __main__:main:298 - 🚀 启动冲锋赛过程管理系统（定时模式）
+2026-07-31 10:23:31.929 | INFO     | __main__:main:299 -    数据模式: Mock
+2026-07-31 10:23:31.929 | INFO     | __main__:start_scheduled:107 - [调度] 启动定时巡检模式...
+2026-07-31 10:23:31.929 | INFO     | src.core.scheduler:register_task:49 - [调度] 注册任务: peak - 冲锋日每小时巡检
+2026-07-31 10:23:31.929 | INFO     | src.core.scheduler:register_task:49 - [调度] 注册任务: warmup - 蓄水期每3小时巡检
+2026-07-31 10:23:31.929 | INFO     | src.core.scheduler:register_task:49 - [调度] 注册任务: daily - 日常工作日巡检
+2026-07-31 10:23:31.929 | INFO     | src.core.scheduler:register_task:49 - [调度] 注册任务: recap - 每日复盘报告
+2026-07-31 10:23:31.929 | INFO     | src.core.scheduler:start:59 - [调度] 调度器已启动
+2026-07-31 10:23:31.929 | INFO     | __main__:start_scheduled:131 - [调度] 已启动，按Ctrl+C停止
+2026-07-31 10:24:40.226 | INFO     | __main__:run_recap:88 - [复盘] 开始生成复盘报告...
