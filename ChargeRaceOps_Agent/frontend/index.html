@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冲锋赛过程管理驾驶舱 | 东部大区</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- 顶部导航 -->
+        <header class="top-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fa fa-line-chart"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>冲锋赛过程管理驾驶舱</h1>
+                    <p>生活服务 · 东部大区 · 浙中北大区</p>
+                </div>
+            </div>
+            <div class="header-info">
+                <div class="campaign-tag">
+                    <span class="tag-label">当前冲锋</span>
+                    <span class="tag-value">7月末冲刺</span>
+                </div>
+                <div class="time-display">
+                    <i class="fa fa-clock-o"></i>
+                    <span id="current-time">2026-07-31 14:30:28</span>
+                </div>
+                <div class="refresh-btn" onclick="refreshData()">
+                    <i class="fa fa-refresh" id="refresh-icon"></i>
+                    <span>刷新数据</span>
+                </div>
+                <div class="mode-switch">
+                    <button class="mode-btn active" onclick="switchMode('mock')">Mock</button>
+                    <button class="mode-btn" onclick="switchMode('real')">API</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- KPI 指标区 -->
+        <section class="kpi-section">
+            <div class="kpi-card kpi-primary">
+                <div class="kpi-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <i class="fa fa-bell"></i>
+                </div>
+                <div class="kpi-content">
+                    <div class="kpi-label">今日预警总数</div>
+                    <div class="kpi-value">
+                        <span id="kpi-alert-total">246</span>
+                        <span class="kpi-unit">条</span>
+                    </div>
+                    <div class="kpi-trend trend-up">
+                        <i class="fa fa-arrow-up"></i>
+                        <span>较昨日 +12.8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card kpi-success">
+                <div class="kpi-icon" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+                <div class="kpi-content">
+                    <div class="kpi-label">预警跟进率</div>
+                    <div class="kpi-value">
+                        <span id="kpi-follow-rate">87.4</span>
+                        <span class="kpi-unit">%</span>
+                    </div>
+                    <div class="kpi-trend trend-up">
+                        <i class="fa fa-arrow-up"></i>
+                        <span>超目标 +2.4 pct</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card kpi-warning">
+                <div class="kpi-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <i class="fa fa-tachometer"></i>
+                </div>
+                <div class="kpi-content">
+                    <div class="kpi-label">异常发现平均时效</div>
+                    <div class="kpi-value">
+                        <span id="kpi-latency">47</span>
+                        <span class="kpi-unit">分钟</span>
+                    </div>
+                    <div class="kpi-trend trend-down">
+                        <i class="fa fa-arrow-down"></i>
+                        <span>较人工 +87%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card kpi-info">
+                <div class="kpi-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div class="kpi-content">
+                    <div class="kpi-label">BDM覆盖率</div>
+                    <div class="kpi-value">
+                        <span id="kpi-bdm-rate">100</span>
+                        <span class="kpi-unit">%</span>
+                    </div>
+                    <div class="kpi-trend trend-flat">
+                        <i class="fa fa-minus"></i>
+                        <span>全量覆盖 8/8</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card kpi-danger">
+                <div class="kpi-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <i class="fa fa-bullseye"></i>
+                </div>
+                <div class="kpi-content">
+                    <div class="kpi-label">冲锋目标达成率</div>
+                    <div class="kpi-value">
+                        <span id="kpi-goal-rate">72.3</span>
+                        <span class="kpi-unit">%</span>
+                    </div>
+                    <div class="kpi-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 72.3%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kpi-card kpi-secondary">
+                <div class="kpi-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+                <div class="kpi-content">
+                    <div class="kpi-label">节省销售支持工时</div>
+                    <div class="kpi-value">
+                        <span id="kpi-saved-time">16.4</span>
+                        <span class="kpi-unit">小时</span>
+                    </div>
+                    <div class="kpi-trend trend-up">
+                        <i class="fa fa-arrow-up"></i>
+                        <span>每日节省 3.2h/人</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第一行图表区 -->
+        <section class="chart-row">
+            <!-- 预警趋势 -->
+            <div class="chart-card chart-wide">
+                <div class="chart-header">
+                    <h3><i class="fa fa-area-chart"></i> 预警趋势分析（72小时）</h3>
+                    <div class="chart-controls">
+                        <span class="legend-item"><span class="dot dot-blue"></span>R1低完成率</span>
+                        <span class="legend-item"><span class="dot dot-orange"></span>R2增速停滞</span>
+                        <span class="legend-item"><span class="dot dot-green"></span>R3冲刺不足</span>
+                        <span class="legend-item"><span class="dot dot-purple"></span>R4层级失衡</span>
+                    </div>
+                </div>
+                <div id="chart-trend" class="chart-container"></div>
+            </div>
+
+            <!-- 规则分布 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fa fa-pie-chart"></i> 预警规则分布</h3>
+                </div>
+                <div id="chart-rule-pie" class="chart-container"></div>
+            </div>
+        </section>
+
+        <!-- 第二行图表区 -->
+        <section class="chart-row">
+            <!-- BDM完成度排名 -->
+            <div class="chart-card chart-wide">
+                <div class="chart-header">
+                    <h3><i class="fa fa-bar-chart"></i> BDM三项指标完成度排名</h3>
+                    <div class="filter-tabs">
+                        <button class="tab-btn active" onclick="filterBdmRank('single')">单计</button>
+                        <button class="tab-btn" onclick="filterBdmRank('double')">双计</button>
+                        <button class="tab-btn" onclick="filterBdmRank('scan')">双计扫码</button>
+                        <button class="tab-btn" onclick="filterBdmRank('comprehensive')">综合</button>
+                    </div>
+                </div>
+                <div id="chart-bdm-rank" class="chart-container"></div>
+            </div>
+
+            <!-- 冲刺预测 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fa fa-line-chart"></i> 冲锋冲刺预测</h3>
+                </div>
+                <div id="chart-forecast" class="chart-container"></div>
+            </div>
+        </section>
+
+        <!-- 第三行：预警列表 + 热力图 -->
+        <section class="chart-row">
+            <!-- 预警详情列表 -->
+            <div class="chart-card chart-wide">
+                <div class="chart-header">
+                    <h3><i class="fa fa-list-alt"></i> 实时预警详情</h3>
+                    <div class="alert-filters">
+                        <button class="filter-btn active" onclick="filterAlerts('all')">全部 <span class="badge">246</span></button>
+                        <button class="filter-btn filter-open" onclick="filterAlerts('open')">待跟进 <span class="badge badge-red">31</span></button>
+                        <button class="filter-btn filter-ack" onclick="filterAlerts('acknowledged')">已跟进 <span class="badge badge-green">215</span></button>
+                    </div>
+                </div>
+                <div class="alert-list-container">
+                    <table class="alert-table">
+                        <thead>
+                            <tr>
+                                <th>规则</th>
+                                <th>对象</th>
+                                <th>所属城市</th>
+                                <th>指标</th>
+                                <th>当前值</th>
+                                <th>阈值</th>
+                                <th>状态</th>
+                                <th>跟进人</th>
+                                <th>触发时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alert-table-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CM层级结构热力图 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fa fa-th"></i> BDM×CM 综合达成热力图</h3>
+                </div>
+                <div id="chart-heatmap" class="chart-container"></div>
+            </div>
+        </section>
+
+        <!-- 第四行：雷达图 + 状态统计 + 工时节省 -->
+        <section class="chart-row">
+            <!-- 综合能力雷达图 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fa fa-star"></i> TOP5 BDM 综合能力雷达</h3>
+                </div>
+                <div id="chart-radar" class="chart-container"></div>
+            </div>
+
+            <!-- 状态流转统计 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fa fa-exchange"></i> 预警状态流转</h3>
+                </div>
+                <div id="chart-sankey" class="chart-container"></div>
+            </div>
+
+            <!-- 数据可视化仪表 -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fa fa-tachometer"></i> 关键指标仪表</h3>
+                </div>
+                <div class="gauge-container">
+                    <div id="chart-gauge1" class="gauge-chart"></div>
+                    <div id="chart-gauge2" class="gauge-chart"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部：复盘报告区 -->
+        <section class="recap-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fa fa-file-text-o"></i> 冲锋复盘自动摘要</h3>
+                    <button class="action-btn" onclick="exportRecap()">
+                        <i class="fa fa-download"></i> 导出完整报告
+                    </button>
+                </div>
+                <div class="recap-content">
+                    <div class="recap-card recap-highlight">
+                        <i class="fa fa-trophy recap-icon"></i>
+                        <h4>核心亮点</h4>
+                        <ul>
+                            <li>预警跟进率 <b class="text-green">87.4%</b>，超过目标值 2.4 个百分点</li>
+                            <li>异常发现时效 <b class="text-blue">47分钟</b>，较人工模式提升 87%</li>
+                            <li>BDM综合达成较上周 <b class="text-green">+5.2 pct</b>，提升效果显著</li>
+                        </ul>
+                    </div>
+                    <div class="recap-card recap-warning">
+                        <i class="fa fa-exclamation-triangle recap-icon"></i>
+                        <h4>待改进项</h4>
+                        <ul>
+                            <li>R1低完成率预警仍占 <b class="text-red">56%</b>，建议加强日常辅导</li>
+                            <li>王鸿鹏、刘强两名BDM连续 <b class="text-red">3场</b> 冲锋排名后两位</li>
+                            <li>15:00-18:00时段预警响应最慢，建议设置专属响应窗口</li>
+                        </ul>
+                    </div>
+                    <div class="recap-card recap-info">
+                        <i class="fa fa-lightbulb-o recap-icon"></i>
+                        <h4>优化建议</h4>
+                        <ul>
+                            <li>下一场冲锋重点关注 <b>杭州一区</b> 内部分化（CM极差 > 50%）</li>
+                            <li>对R2增速停滞规则增加 <b>"头部门店POS故障"</b> 快速排查机制</li>
+                            <li>可将R3冲刺不足的提前预警窗口从3小时调整至 <b>5小时</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部 -->
+        <footer class="footer">
+            <div class="footer-info">
+                <span><i class="fa fa-shield"></i> 数据驱动业务决策闭环</span>
+                <span class="divider">|</span>
+                <span><i class="fa fa-server"></i> 数据版本：v1.0.0</span>
+                <span class="divider">|</span>
+                <span><i class="fa fa-code-branch"></i> 部署环境：Production</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="mock-data.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

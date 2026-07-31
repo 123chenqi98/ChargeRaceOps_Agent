@@ -1,4 +1,7 @@
-# 冲锋赛过程管理 - 数据驱动业务闭环
+![alt text](ChargeRaceOps_Agent/img/image-2.png)
+
+![alt text](ChargeRaceOps_Agent/img/image-3.png)
+冲锋赛过程管理 - 数据驱动业务闭环
 
 ## 项目概述
 
@@ -118,6 +121,6 @@ ChargeRaceOps_Agent/
 4. **可量化的业务价值** - 异常发现时效提升4-8倍，工时节省70-80%
 
 
-![alt text](image.png)
+![alt text](ChargeRaceOps_Agent/img/image.png)
 
-![alt text](image-1.png)
+![alt text](ChargeRaceOps_Agent/img/image-1.png)
