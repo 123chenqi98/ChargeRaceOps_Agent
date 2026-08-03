@@ -4,6 +4,8 @@
 ![alt text](ChargeRaceOps_Agent/img/image-4.png)
 冲锋赛过程管理 - 数据驱动业务闭环
 
+http://localhost:8765/index.html
+
 ## 项目概述
 基于数据驱动理念，为生活服务东部大区冲锋赛构建的过程管理系统。核心实现「数据采集 → 智能识别 → 精准触达 → 状态追踪 → 复盘优化」完整数据闭环。
 
