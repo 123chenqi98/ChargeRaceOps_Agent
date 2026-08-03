@@ -41,6 +41,16 @@
             </div>
         </header>
 
+        <!-- 顶部 Tab 导航 -->
+        <nav class="tab-nav">
+            <button class="nav-tab active" onclick="switchTab('cockpit')"><i class="fa fa-dashboard"></i> 数据驾驶舱</button>
+            <button class="nav-tab" onclick="switchTab('profile')"><i class="fa fa-trophy"></i> BDM画像排行</button>
+            <button class="nav-tab" onclick="switchTab('ai-report')"><i class="fa fa-brain"></i> AI归因&策略</button>
+        </nav>
+
+        <!-- Tab 1: 数据驾驶舱 内容 -->
+        <div id="tab-cockpit">
+
         <!-- KPI 指标区 -->
         <section class="kpi-section">
             <div class="kpi-card kpi-primary">
@@ -321,9 +331,134 @@
                 <span><i class="fa fa-code-branch"></i> 部署环境：Production</span>
             </div>
         </footer>
+
+        </div> <!-- 结束 tab-cockpit -->
+
+        <!-- Tab 2: BDM画像排行 内容 -->
+        <div id="tab-profile" class="tab-content">
+            <section class="kpi-section">
+                <div class="kpi-card" style="grid-column: span 2;">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #f5af19 0%, #f12711 100%);">
+                        <i class="fa fa-star-half-o"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">团队平均分</div>
+                        <div class="kpi-value"><span id="prof-avg">59.1</span><span class="kpi-unit">分</span></div>
+                        <div class="kpi-trend trend-down" style="background:rgba(245,87,108,0.1);color:#f5576c">
+                            <i class="fa fa-users"></i><span>S/A级 0% / D级 3人</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">本周上升</div>
+                        <div class="kpi-value"><span id="prof-up">3</span><span class="kpi-unit">人</span></div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);">
+                        <i class="fa fa-arrow-down"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">本周下降</div>
+                        <div class="kpi-value"><span id="prof-down">2</span><span class="kpi-unit">人</span></div>
+                    </div>
+                </div>
+                <div class="kpi-card" style="grid-column: span 2;">
+                    <div class="kpi-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="fa fa-bolt"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">综合冠军</div>
+                        <div class="kpi-value" style="font-size:20px;">
+                            <span id="prof-champion">张伟</span>
+                            <span class="kpi-unit" style="color:#fbbf24">🏆 75.1分</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="chart-row" style="grid-template-columns: 1.6fr 1fr;">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fa fa-list-ol"></i> BDM综合能力排行榜</h3>
+                    </div>
+                    <div id="profile-rank-list" style="max-height:420px;overflow-y:auto;padding:4px;"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fa fa-bar-chart"></i> 6维度能力对比（Top4）</h3>
+                    </div>
+                    <div id="chart-profile-radar" class="chart-container" style="height:340px;"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Tab 3: AI 归因 & 策略 内容 -->
+        <div id="tab-ai-report" class="tab-content">
+            <section class="chart-row" style="grid-template-columns: 1fr 1fr;">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fa fa-magnet"></i> TOP 根因自动归因（本轮）</h3>
+                        <span class="badge badge-green" style="background:rgba(56,239,125,0.2);color:#38ef7d;">AI 自动生成</span>
+                    </div>
+                    <div id="ai-cause-section" style="padding:8px 4px;"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fa fa-lightbulb-o"></i> 智能策略推荐（TOP3 BDM）</h3>
+                    </div>
+                    <div id="ai-strategy-section" style="max-height:420px;overflow-y:auto;padding:4px;"></div>
+                </div>
+            </section>
+
+            <section class="chart-row">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3><i class="fa fa-commenting"></i> 个性化催办话术示例（AI生成）</h3>
+                    </div>
+                    <div id="ai-urge-section" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:4px;"></div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- AI助手悬浮面板 -->
+    <div id="ai-fab" class="ai-fab" onclick="toggleAiPanel()">
+        <i class="fa fa-commenting"></i>
+        <span class="fab-badge">AI</span>
+    </div>
+
+    <div id="ai-panel" class="ai-panel">
+        <div class="ai-panel-header">
+            <div>
+                <div style="font-size:15px;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px;">
+                    <span style="background:linear-gradient(135deg,#667eea,#764ba2);padding:4px 10px;border-radius:8px;font-size:11px;">AI数据助手</span>
+                    <span style="font-size:11px;color:#8892b0;">自然语言问数</span>
+                </div>
+            </div>
+            <button class="panel-close" onclick="toggleAiPanel()">×</button>
+        </div>
+        <div id="ai-chat-body" class="ai-chat-body"></div>
+        <div class="ai-quick">
+            <span onclick="aiQuickAsk('整体进度如何？')">📊 整体进度</span>
+            <span onclick="aiQuickAsk('为什么王鸿鹏低完成率？')">🧠 王鸿鹏归因</span>
+            <span onclick="aiQuickAsk('怎么帮陈静达标？')">💡 陈静达标</span>
+            <span onclick="aiQuickAsk('给我复盘要点')">📝 复盘要点</span>
+        </div>
+        <div class="ai-input-row">
+            <input id="ai-input" placeholder="输入你的问题，如：刘强现在完成度？" onkeydown="if(event.key==='Enter')sendAiMsg()">
+            <button onclick="sendAiMsg()"><i class="fa fa-paper-plane"></i></button>
+        </div>
     </div>
 
     <script src="mock-data.js"></script>
     <script src="dashboard.js"></script>
+    <script src="profile-tab.js"></script>
+    <script src="ai-panel.js"></script>
 </body>
 </html>

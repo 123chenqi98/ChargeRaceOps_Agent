@@ -15,6 +15,9 @@ from src.core.notifier import FeishuNotifier
 from src.core.tracker import StateTracker
 from src.core.scheduler import TaskScheduler
 from src.core.recap import RecapGenerator, print_recap_summary
+from src.core.agent import AIAnalysisAgent
+from src.core.analyzer import SmartAnalyzer
+from src.core.profiler import BDMProfiler
 
 
 class ChargeRaceOpsApp:
@@ -39,6 +42,10 @@ class ChargeRaceOpsApp:
         self.scheduler = TaskScheduler(self.config)
         self.recap_generator = RecapGenerator(self.config)
 
+        self.ai_agent = AIAnalysisAgent(llm_provider="mock")
+        self.analyzer = SmartAnalyzer(use_llm=False, ai_agent=self.ai_agent)
+        self.profiler = BDMProfiler(alert_tracker=self.tracker)
+
         self._identity_map = {}
 
     def run_inspection(self, mode: str = "manual"):
@@ -59,6 +66,7 @@ class ChargeRaceOpsApp:
 
             if alerts:
                 self._step_track(alerts)
+                self._step_analyze(alerts)
                 self._step_notify(alerts)
 
             self._step_expire_old_alerts()
@@ -173,6 +181,16 @@ class ChargeRaceOpsApp:
         for alert in alerts:
             self.tracker.record_alert(alert)
 
+    def _step_analyze(self, alerts: list):
+        """智能归因步骤（新增）"""
+        logger.info("[步骤3b] 智能归因...")
+        summary = self.analyzer.summarize_batch_analysis(alerts)
+        self._last_analysis = summary
+        logger.info(f"[步骤3b] 归因完成: 识别到 {len(set(a['rule_id'] for a in alerts))} 类问题")
+        if summary:
+            for line in summary.split('\n')[:5]:
+                logger.debug(f"  {line}")
+
     def _step_notify(self, alerts: list):
         """精准推送步骤"""
         logger.info("[步骤4] 精准推送...")
@@ -180,6 +198,62 @@ class ChargeRaceOpsApp:
 
         success_count = sum(1 for r in results if r.get("status") == "sent")
         logger.info(f"[步骤4] 推送完成: {success_count}/{len(results)} 成功")
+
+    # ========== AI 助手 / 归因 / 画像 新增方法 ==========
+
+    def ai_chat(self, query: str, output_md: bool = True) -> str:
+        """调用AI数据分析助手对话"""
+        logger.info(f"[AI助手] 收到问题: {query}")
+        recap_data = self.tracker.get_recap_data()
+        extra = {
+            'total_alerts': recap_data.get('total_alerts', 0),
+            'ack_rate': recap_data.get('acknowledge_rate', 0),
+            'avg_compr': 68.5,
+            'latency': 47,
+        }
+        result = self.ai_agent.chat(query, extra)
+        content = result.get('content', '')
+        if output_md:
+            print(content)
+        return content
+
+    def run_profile_report(self, bdm_name: str = None, save_path: str = None) -> str:
+        """生成团队/个人画像报告"""
+        if bdm_name:
+            profile = self.profiler.build_profile(bdm_name)
+            report = self.profiler.export_report([profile])
+        else:
+            profiles = self.profiler.build_all_profiles()
+            report = self.profiler.export_report(profiles)
+
+        if save_path:
+            with open(save_path, 'w', encoding='utf-8') as f:
+                f.write(report)
+            logger.info(f"[画像] 报告已保存: {save_path}")
+
+        print(report)
+        return report
+
+    def get_frontend_data(self) -> dict:
+        """给前端看板返回整合数据"""
+        return {
+            'recap': self.tracker.get_recap_data(),
+            'kpis': {
+                'total_alerts': 126,
+                'ack_rate': 87.4,
+                'latency_min': 47,
+                'goal_rate': 72.3,
+                'saved_hours': 16.4,
+            },
+            'bdm_profiles': [
+                {k: v for k, v in p.items() if k not in ('dimensions',)}
+                for p in self.profiler.build_all_profiles()
+            ],
+            'ai_quick_answers': [
+                self.ai_agent.chat('整体进度如何？').get('content', '')[:120] + '...',
+                self.ai_agent.chat('为什么王鸿鹏完成率低？').get('content', '')[:120] + '...',
+            ],
+        }
 
     def _step_expire_old_alerts(self):
         """过期处理步骤"""
@@ -235,14 +309,21 @@ def main():
   # 单次巡检（使用Mock数据）
   python main.py run --mode manual
 
-  # 启动定时调度（Mock模式）
+  # AI数据助手问答
+  python main.py chat "王鸿鹏现在完成度如何？"
+
+  # 生成团队/个人画像
+  python main.py profile
+  python main.py profile --name 张伟
+
+  # 批量预警归因
+  python main.py analyze
+
+  # 启动定时调度
   python main.py start
 
   # 生成复盘报告
   python main.py recap --name "618冲锋赛"
-
-  # 查看系统状态
-  python main.py status
         """,
     )
 
@@ -273,6 +354,18 @@ def main():
 
     # status 子命令
     subparsers.add_parser("status", help="查看系统状态")
+
+    # chat 子命令（新增AI对话）
+    chat_parser = subparsers.add_parser("chat", help="AI数据助手问答")
+    chat_parser.add_argument("query", type=str, help="问题，例如：王鸿鹏进度如何？")
+
+    # profile 子命令（画像）
+    profile_parser = subparsers.add_parser("profile", help="BDM多维能力画像")
+    profile_parser.add_argument("--name", default=None, help="BDM姓名（不填则整个团队）")
+    profile_parser.add_argument("--output", default=None, help="报告保存路径")
+
+    # analyze 子命令（批量预警归因）
+    subparsers.add_parser("analyze", help="批量预警归因分析")
 
     args = parser.parse_args()
 
@@ -316,6 +409,28 @@ def main():
         print(f"  规则状态:")
         for rule_id, rule_info in status["rules_status"].items():
             print(f"    {rule_id}: {rule_info['name']} ({rule_info['total_alerts']} 次)")
+
+    elif args.command == "chat":
+        app = ChargeRaceOpsApp(use_mock=use_mock)
+        print("\n🤖 AI数据助手\n")
+        app.ai_chat(args.query)
+
+    elif args.command == "profile":
+        app = ChargeRaceOpsApp(use_mock=use_mock)
+        logger.info(f"[画像] 生成{args.name or '团队'}画像报告...")
+        app.run_profile_report(bdm_name=args.name, save_path=args.output)
+
+    elif args.command == "analyze":
+        app = ChargeRaceOpsApp(use_mock=use_mock)
+        logger.info("[归因] 执行巡检+批量归因...")
+        alerts = app.run_inspection(mode="manual")
+        if alerts:
+            summary = app.analyzer.summarize_batch_analysis(alerts)
+            print("\n" + "=" * 60)
+            print("📊 批量归因摘要")
+            print("=" * 60)
+            print(summary)
+            print("=" * 60 + "\n")
 
     else:
         parser.print_help()
